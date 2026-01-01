@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://pht6oapbw7km"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cen7u"]
+distance = -35.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_s5pkv"]
+distance = -687.0
+
+[node name="Barrier" type="StaticBody2D"]
+
+[node name="Upper" type="CollisionShape2D" parent="."]
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_cen7u")
+
+[node name="Lower" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_s5pkv")
