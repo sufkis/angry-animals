@@ -22,9 +22,10 @@ func setup() -> void:
 	arrow.hide()
 	_start = position
 
-
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	update_debug_label()
+
+#region misc
 
 func update_debug_label() -> void:
 	var debug_string: String = "ST:%s SL:%s FR:%s\n" % [
@@ -34,8 +35,35 @@ func update_debug_label() -> void:
 	debug_string += "_dragged_vector: %.1f, %.1f" % [_dragged_vector.x, _dragged_vector.y]
 	debug_label.text = debug_string
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	pass
+#endregion
+
+#region drag
+
+func start_dragging() -> void:
+	arrow.show()
+	_drag_start = get_global_mouse_position()
+
+#endregion
+
+#region state
+
+func change_state(new_state: AnimalState) -> void:
+	if _state == new_state:
+		return
+	
+	_state = new_state
+	
+	match _state:
+		AnimalState.Drag:
+			start_dragging()
+
+#endregion
+
+#region signals
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("drag") and _state == AnimalState.Ready:
+		change_state(AnimalState.Drag)
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
@@ -48,3 +76,5 @@ func _on_sleeping_state_changed() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	pass # Replace with function body.
+
+#endregion
