@@ -17,6 +17,10 @@ var _drag_start: Vector2 = Vector2.ZERO
 var _dragged_vector: Vector2 = Vector2.ZERO
 var _arrow_scale_x: float = 0.0
 
+func _unhandled_input(event: InputEvent) -> void:
+	if _state == AnimalState.Drag and event.is_action_released("drag"):
+		call_deferred("change_state", AnimalState.Release) #deffers the function call tp the end of the frame to prevent syncing problems
+
 func _ready() -> void:
 	setup()
 
@@ -62,6 +66,15 @@ func handle_dragging() -> void:
 
 #endregion
 
+#region drag
+
+func start_release() -> void:
+	arrow.hide()
+	launch_sound.play()
+	freeze = false
+
+#endregion
+
 #region state
 
 func update_state() -> void:
@@ -78,6 +91,8 @@ func change_state(new_state: AnimalState) -> void:
 	match _state:
 		AnimalState.Drag:
 			start_dragging()
+		AnimalState.Release:
+			start_release()
 
 #endregion
 
