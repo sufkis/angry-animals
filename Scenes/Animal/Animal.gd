@@ -45,6 +45,10 @@ func update_debug_label() -> void:
 	debug_string += "_dragged_vector: %.1f, %.1f" % [_dragged_vector.x, _dragged_vector.y]
 	debug_label.text = debug_string
 
+func die() -> void:
+	SignalHub.emit_on_animal_died()
+	queue_free()
+
 #endregion
 
 #region drag
@@ -52,7 +56,7 @@ func update_debug_label() -> void:
 func update_arrow_scale() -> void:
 	var impulse_length: float = calculate_impulse().length()
 	var percentage: float = clamp(impulse_length / IMPULSE_MAX, 0.0, 0.1)
-	arrow.scale.x = lerp(_arrow_scale_x, _arrow_scale_x * 5, percentage)
+	arrow.scale.x = lerp(_arrow_scale_x, _arrow_scale_x * 2, percentage)
 	arrow.rotation = (_start - position).angle()
 	
 func start_dragging() -> void:
@@ -117,7 +121,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	pass
+	die()
 
 
 func _on_sleeping_state_changed() -> void:
