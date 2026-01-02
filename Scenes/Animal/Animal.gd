@@ -4,6 +4,8 @@ enum AnimalState { Ready, Drag, Release }
 
 const DRAG_LIMIT_MAX: Vector2 = Vector2(0, 60)
 const DRAG_LIMIT_MIN: Vector2 = Vector2(-60, 0)
+const IMPULSE_MULTIPLY: float = 20.0
+const IMPULSE_MAX: float = 1200.0
 
 @onready var debug_label: Label = $DebugLabel
 @onready var arrow: Sprite2D = $Arrow
@@ -47,6 +49,12 @@ func update_debug_label() -> void:
 
 #region drag
 
+func update_arrow_scale() -> void:
+	var impulse_length: float = calculate_impulse().length()
+	var percentage: float = clamp(impulse_length / IMPULSE_MAX, 0.0, 0.1)
+	arrow.scale.x = lerp(_arrow_scale_x, _arrow_scale_x * 5, percentage)
+	arrow.rotation = (_start - position).angle()
+	
 func start_dragging() -> void:
 	arrow.show()
 	_drag_start = get_global_mouse_position()
@@ -63,15 +71,20 @@ func handle_dragging() -> void:
 	
 	_dragged_vector = new_drag_vector
 	position = _start + _dragged_vector
+	update_arrow_scale()
 
 #endregion
 
-#region drag
+#region release
+
+func calculate_impulse() -> Vector2:
+	return _dragged_vector * -IMPULSE_MULTIPLY
 
 func start_release() -> void:
 	arrow.hide()
 	launch_sound.play()
 	freeze = false
+	apply_central_impulse(calculate_impulse())
 
 #endregion
 
