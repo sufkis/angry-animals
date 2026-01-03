@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2lbtq4ico2o"]
+
+[ext_resource type="LabelSettings" uid="uid://dvifp11ydbjsl" path="res://Resources/grey_32_font.tres" id="1_mb7aw"]
+[ext_resource type="LabelSettings" uid="uid://dfoiekid1l3qj" path="res://Resources/blue_72_font.tres" id="2_anolp"]
+[ext_resource type="LabelSettings" uid="uid://cy7r1r4f5kbct" path="res://Resources/light_48_font.tres" id="3_tt7lr"]
+[ext_resource type="AudioStream" uid="uid://de3vkjasp3h6o" path="res://Assets/audio/jazzyfrenchy.mp3" id="4_tt7lr"]
+
+[node name="GameUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level 10"
+label_settings = ExtResource("1_mb7aw")
+
+[node name="AttemptsLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Attempt 0"
+label_settings = ExtResource("1_mb7aw")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Level Complete"
+label_settings = ExtResource("2_anolp")
+
+[node name="SpaceLabel" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Press Space"
+label_settings = ExtResource("3_tt7lr")
+horizontal_alignment = 1
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_tt7lr")
+parameters/looping = true
