@@ -29,6 +29,7 @@ texture = ExtResource("2_5swx0")
 shape = SubResource("CircleShape2D_englr")
 
 [node name="DebugLabel" type="Label" parent="."]
+visible = false
 offset_left = -33.0
 offset_top = -113.0
 offset_right = 7.0

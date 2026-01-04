@@ -23,3 +23,4 @@ func _on_cup_destroyed(remaining_cups: int) -> void:
 	if remaining_cups == 0:
 		vb_game_over.show()
 		music.play()
+		ScoreManager.set_score_for_level(ScoreManager.level_selected, _attempts)
