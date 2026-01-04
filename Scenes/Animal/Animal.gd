@@ -55,8 +55,8 @@ func die() -> void:
 
 func update_arrow_scale() -> void:
 	var impulse_length: float = calculate_impulse().length()
-	var percentage: float = clamp(impulse_length / IMPULSE_MAX, 0.0, 0.1)
-	arrow.scale.x = lerp(_arrow_scale_x, _arrow_scale_x * 2, percentage)
+	var percentage: float = clamp(impulse_length / IMPULSE_MAX, 0.0, 1.0)
+	arrow.scale.x = lerp(_arrow_scale_x, _arrow_scale_x * 3, percentage)
 	arrow.rotation = (_start - position).angle()
 	
 func start_dragging() -> void:

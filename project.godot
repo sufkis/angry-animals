@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Angry Animals"
-run/main_scene="uid://jxlrtvy20i38"
+run/main_scene="uid://ca3jpuhl3n83w"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SignalHub="*res://Globals/SignalHub.gd"
+ScoreManager="*res://Globals/ScoreManager.gd"
 
 [editor]
 
